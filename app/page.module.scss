@@ -1,0 +1,55 @@
+/** @format */
+.videoWrap {
+   height: 700px;
+   position: relative;
+}
+.video {
+   position: absolute;
+   right: 0;
+   top: 0;
+   height: 700px;
+   width: 100%;
+   object-fit: cover;
+   z-index: -1;
+}
+.tourList {
+   // padding-top: 80px;
+   // padding-bottom: 80px;
+   // row-gap: 30px;
+   // background-image: url(https://dulich.demoweb.click/wp-content/uploads/2023/12/bg-01.png);
+   // /* Sử dụng hai hình ảnh nền */
+   // background-position: center center, center center; /* Căn chỉnh vị trí cho cả hai hình ảnh nền */
+   // background-size: cover, cover; /* Đặt kích thước cho cả hai hình ảnh nền */
+   // background-repeat: no-repeat, no-repeat; /* Đảm bảo không lặp lại hình ảnh */
+   // position: relative;
+   min-height: 500px;
+   text-align: center;
+   padding: 80px 30px;
+   .container {
+      max-width: 1344px;
+      margin: 0 auto;
+
+      .title_divider {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 5px;
+         .divider {
+            padding: 1px;
+            background-color: var(--secondary-color);
+            width: 100px;
+         }
+         .title {
+            font-size: 25px;
+            color: var(--secondary-color);
+            font-weight: 300;
+            position: relative;
+         }
+      }
+
+      .titlePrimary {
+         font-size: 40px;
+         color: var(--primary-color);
+      }
+   }
+}

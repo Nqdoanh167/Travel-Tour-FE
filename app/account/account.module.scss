@@ -1,0 +1,94 @@
+/** @format */
+
+.accountWrap {
+   max-width: 1344px;
+   margin: 0 auto;
+   padding: 80px 60px;
+}
+.user_view {
+   background-color: #fff;
+   max-width: 120rem;
+   margin: 0 auto;
+   min-height: 100vh;
+   border-radius: 3px;
+   overflow: hidden;
+   -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.07);
+   box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.07);
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+}
+.user_view__menu {
+   -webkit-box-flex: 320px;
+   -ms-flex: 320px 0 0px;
+   flex: 320px 0 0;
+   background-image: -webkit-gradient(
+      linear,
+      left top,
+      right bottom,
+      from(var(--secondary-color)),
+      to(var(--primary-color))
+   );
+   background-image: linear-gradient(to right bottom, var(--secondary-color), var(--primary-color));
+   padding: 40px 0;
+}
+.side_nav {
+   list-style: none;
+}
+.side_nav li {
+   border-left: 0 solid #fff;
+   -webkit-transition: all 0.3s;
+   transition: all 0.3s;
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+}
+.link {
+   border-left: 4px solid #fff !important;
+}
+.link {
+   -webkit-transform: translateX(-4px);
+   transform: translateX(-4px);
+}
+.link:hover {
+   -webkit-transform: translateX(0px);
+   transform: translateX(0px);
+}
+.link_active {
+   transform: none;
+}
+.side_nav a:link,
+.side_nav a:visited {
+   padding: 10px 40px;
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-align: center;
+   -ms-flex-align: center;
+   align-items: center;
+   color: #fff;
+   font-size: 15px;
+   text-transform: uppercase;
+   font-weight: 400;
+   text-decoration: none;
+   -webkit-transition: all 0.3s;
+   transition: all 0.3s;
+}
+
+.admin_nav {
+   margin-top: 5.5rem;
+}
+.admin_nav__heading {
+   margin: 0 50px 15px 40px;
+   padding-bottom: 3px;
+   font-size: 12px;
+   text-transform: uppercase;
+   color: #f2f2f2;
+   border-bottom: 1px solid currentColor;
+}
+.content {
+   -webkit-box-flex: 1;
+   -ms-flex: 1;
+   flex: 1;
+   padding: 70px 0;
+}

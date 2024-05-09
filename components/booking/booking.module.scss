@@ -1,0 +1,66 @@
+/** @format */
+.modal {
+   width: 800px !important;
+}
+.modalContent {
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+.infoTour {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 20px;
+}
+.booking {
+   padding: 25px;
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   background-color: #f8f4f0;
+   border-bottom: 5px solid var(--secondary-color);
+   min-width: 360px;
+   position: relative;
+   top: -3px;
+}
+.btn_submit {
+   background-color: var(--secondary-color);
+   color: #fff;
+   font-weight: 600;
+   cursor: pointer;
+   &:hover {
+      opacity: 0.7;
+      background-color: var(--secondary-color) !important;
+   }
+}
+.name,
+.price {
+   font-size: 18px;
+   font-weight: 600;
+   color: var(--primary-color);
+}
+.input_form {
+   &::placeholder {
+      color: #a9a6a6;
+      font-weight: 500;
+   }
+}
+// .date_form {
+//    width: 100%;
+//    & > div {
+//       input {
+//          &::placeholder {
+//             color: #a9a6a6 !important;
+//             font-weight: 500 !important;
+//          }
+//       }
+//    }
+// }
+.select > div > div > div > div > div > div {
+   span {
+      color: #a9a6a6 !important;
+      font-weight: 500 !important;
+   }
+}

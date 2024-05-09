@@ -1,0 +1,15 @@
+/** @format */
+.loginWrap {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.btn_submit {
+   background-color: var(--primary-color);
+   text-align: center;
+   width: 100%;
+   &:hover {
+      opacity: 0.7;
+      background-color: var(--primary-color) !important;
+   }
+}
