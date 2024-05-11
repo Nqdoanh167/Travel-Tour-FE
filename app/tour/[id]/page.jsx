@@ -45,7 +45,7 @@ export default function TourDetail() {
       getPage();
       setTimeout(() => {
          setLoading(false);
-      }, 1000);
+      }, 1500);
    }, []);
 
    return (

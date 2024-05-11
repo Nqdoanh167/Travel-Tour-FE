@@ -132,3 +132,15 @@ export const getGuide = async (token) => {
       new Message('Lấy danh sách hướng dẫn viên thất bại!').error();
    }
 };
+export const getManyUser = async (token, data) => {
+   try {
+      let res = await BaseApi.post(`/user/get-many-user`, data, {
+         headers: {
+            Authorization: `Bearer ${token}`,
+         },
+      });
+      return res;
+   } catch (error) {
+      new Message('Lấy danh sách user thất bại!').error();
+   }
+};

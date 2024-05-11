@@ -1,0 +1,100 @@
+/** @format */
+
+.container {
+   border-radius: 20px;
+   border: 1px solid #f1eded;
+}
+.header {
+   text-align: center;
+   background-color: #ededed;
+   padding: 10px;
+   font-weight: 700;
+   border-top-left-radius: 20px;
+   border-top-right-radius: 20px;
+}
+.form_mes {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+.content {
+   padding: 30px;
+   height: 700px;
+   overflow: hidden;
+   overflow-y: scroll;
+}
+.content::-webkit-scrollbar {
+   width: 12px; /* Chiều rộng của thanh cuộn */
+}
+
+/* Màu nền của thanh cuộn */
+.content::-webkit-scrollbar-track {
+   background: #f1f1f1;
+}
+
+/* Màu của thanh cuộn khi được hover */
+.content::-webkit-scrollbar-thumb:hover {
+   background: #888;
+}
+
+/* Màu của thanh cuộn khi được kéo */
+.content::-webkit-scrollbar-thumb {
+   background: #555;
+}
+
+/* Thiết lập thanh cuộn cho các trình duyệt khác */
+.content {
+   scrollbar-width: thin; /* Chiều rộng thanh cuộn */
+   scrollbar-color: #555 #f1f1f1; /* Màu của thanh cuộn và nền của thanh cuộn */
+}
+.content_receive {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   margin-bottom: 10px;
+}
+.content_send {
+   display: flex;
+   flex-direction: column;
+   gap: 30px;
+   align-items: flex-end;
+   margin-bottom: 10px;
+}
+.message {
+   max-width: 200px;
+   min-width: 100px;
+   background-color: #ededed;
+   width: max-content;
+   border-radius: 5px;
+   padding: 10px;
+   .mes_content {
+      font-size: 16px;
+      font-weight: 600;
+   }
+   .mes_date {
+      text-align: right;
+      font-size: 12px;
+   }
+}
+.message_send {
+   background-color: var(--secondary-color);
+   color: #fff;
+}
+.form_send {
+   padding-right: 11px;
+   padding-bottom: 20px;
+   display: flex;
+   align-items: center;
+   gap: 20px;
+}
+.btn_send {
+   padding: 8px;
+   background-color: #557be3;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 100%;
+   outline: none;
+   border: none;
+   cursor: pointer;
+}

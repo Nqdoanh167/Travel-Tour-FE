@@ -1,6 +1,6 @@
 /** @format */
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from './navbar.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,7 +10,9 @@ import {useRouter} from 'next/navigation';
 import Cookies from 'js-cookie';
 import {jwtDecode} from 'jwt-decode';
 import {useSelector} from 'react-redux';
-const imageSmall = '/assets/places/place5.jpg';
+import {IoNotifications} from 'react-icons/io5';
+import {Badge} from 'antd';
+import {ChatContext} from '@/context/ChatContext';
 export const NavbarLinks = [
    {
       name: 'Home',
@@ -61,6 +63,8 @@ const Navbar = () => {
       }
    }, []);
    const user = useSelector((state) => state.user);
+
+   const {badge} = useContext(ChatContext);
    return (
       <>
          <nav className={styles.navWrap}>
@@ -107,9 +111,14 @@ const Navbar = () => {
                         </button>
                      </div>
                   ) : (
-                     <div className={styles.user} onClick={() => router.replace('/account')}>
-                        <Image src={user.photo} alt='User' width={30} height={30} className={styles.imgUser} />
-                        <div className={styles.nameUser}>{user.email}</div>
+                     <div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+                        <Badge count={badge}>
+                           <IoNotifications fontSize={26} />
+                        </Badge>
+                        <div className={styles.user} onClick={() => router.replace('/account')}>
+                           <Image src={user.photo} alt='User' width={30} height={30} className={styles.imgUser} />
+                           <div className={styles.nameUser}>{user.email}</div>
+                        </div>
                      </div>
                   )}
                </div>
