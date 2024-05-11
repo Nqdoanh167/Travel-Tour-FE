@@ -42,7 +42,13 @@ export default function Booking({openModalBooking, setOpenModalBooking, tour}) {
          <div className={styles.modalContent}>
             <div className={styles.infoTour}>
                <div className='imgTour'>
-                  <Image src={tour.imageCover} alt='Image Cover' width={340} height={220} />
+                  <Image
+                     src={tour.imageCover}
+                     alt='Image Cover'
+                     width={340}
+                     height={220}
+                     className={styles.imageCover}
+                  />
                </div>
                <div className={styles.booking}>
                   <div className={styles.name}>{tour?.name}</div>

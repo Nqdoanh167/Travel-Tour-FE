@@ -37,7 +37,7 @@ const Footer = () => {
                <source src={'/assets/video/footer.mp4'} type='video/mp4' />
             </video>
             <div className={styles.container}>
-               <Row gutter={20} style={{padding: '20px'}}>
+               <Row style={{padding: '20px'}}>
                   <Col xl={{span: 9}} className={styles.left}>
                      <div className={styles.logo}>
                         <Image src={'/assets/logo.png'} alt='Logo' width={116} height={64} />
