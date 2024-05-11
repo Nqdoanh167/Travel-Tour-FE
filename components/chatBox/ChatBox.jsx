@@ -12,7 +12,7 @@ import {IoIosCheckmarkCircleOutline} from 'react-icons/io';
 export default function ChatBox() {
    const [text, setText] = useState('');
    const user = useSelector((state) => state.user);
-   const {chat, userReceive, setNewMessage, setStatusMes, statusMes} = useContext(ChatContext);
+   const {chat, userReceive, setNewMessage, setStatusMes} = useContext(ChatContext);
    const [listMessage, setListMessage] = useState([]);
 
    useEffect(() => {
@@ -43,7 +43,7 @@ export default function ChatBox() {
       }
    };
    return (
-      <div className={styles.container} onClick={handleClick}>
+      <div className={styles.container}>
          <div className={styles.header}>
             <span>{userReceive?.name}</span>
          </div>
@@ -61,7 +61,7 @@ export default function ChatBox() {
                            </div>
                         )}
                         {mes?.senderId === user.id && (
-                           <div className={styles.content_send}>
+                           <div className={styles.content_send} onClick={handleClick}>
                               <div style={{position: 'relative'}}>
                                  <div className={`${styles.message} ${styles.message_send}`} key={index}>
                                     <div className={styles.mes_content}>{mes?.text}</div>

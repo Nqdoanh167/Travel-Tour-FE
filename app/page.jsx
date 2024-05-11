@@ -41,7 +41,7 @@ const Home = () => {
                      <Row gutter={20}>
                         {listTours &&
                            listTours.map((tour, index) => (
-                              <Col span={6} key={index}>
+                              <Col xl={{span: 6}} xs={{span: 24}} md={{span: 12}} key={index}>
                                  <TourCard tour={tour} />
                               </Col>
                            ))}

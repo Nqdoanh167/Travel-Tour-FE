@@ -15,6 +15,7 @@
    flex-direction: column;
    gap: 10px;
 }
+
 .imageSmall {
    display: flex;
    justify-content: space-between;
@@ -98,5 +99,21 @@
    &:hover {
       opacity: 0.7;
       background-color: var(--secondary-color) !important;
+   }
+}
+.imageCover {
+   width: 100%;
+   height: auto;
+}
+@media screen and (max-width: 768px) {
+   .container {
+      padding: 10px;
+   }
+   .imageCover {
+      width: auto;
+      height: 400;
+   }
+   .booking {
+      margin: 30px 0;
    }
 }

@@ -13,22 +13,32 @@ import {useSelector} from 'react-redux';
 import {IoNotifications} from 'react-icons/io5';
 import {Badge} from 'antd';
 import {ChatContext} from '@/context/ChatContext';
+import {slide as Menu} from 'react-burger-menu';
 export const NavbarLinks = [
    {
-      name: 'Home',
+      name: 'Trang chủ',
       link: '/',
+      active: true,
    },
    {
-      name: 'About',
-      link: '/about',
+      name: 'Giới thiệu',
+      link: '/',
+      active: false,
    },
    {
-      name: 'Blogs',
-      link: '/blogs',
+      name: '   Điểm đến',
+      link: '/',
+      active: false,
    },
    {
-      name: 'Best Places',
-      link: '/best-places',
+      name: ' Dịch vụ khác',
+      link: '/',
+      active: false,
+   },
+   {
+      name: '   Liên hệ',
+      link: '/',
+      active: false,
    },
 ];
 
@@ -37,7 +47,7 @@ const Navbar = () => {
    const [openModalLogin, setOpenModalLogin] = useState(false);
    const [openModalRegister, setOpenModalRegister] = useState(false);
    const [loggedIn, setLoggedIn] = useState(false);
-
+   const [active, setActive] = useState(0);
    const handleLogin = () => {
       setOpenModalLogin(!openModalLogin);
    };
@@ -65,8 +75,86 @@ const Navbar = () => {
    const user = useSelector((state) => state.user);
 
    const {badge} = useContext(ChatContext);
+
+   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+   useEffect(() => {
+      const handleResize = () => {
+         setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+         window.removeEventListener('resize', handleResize);
+      };
+   }, []);
+   var stylesMenu = {
+      bmBurgerButton: {
+         position: 'fixed',
+         width: '26px',
+         height: '26px',
+         left: '26px',
+         top: '38px',
+         display: windowWidth <= 768 ? 'block' : 'none',
+      },
+
+      bmBurgerBars: {
+         background: '#373a47',
+      },
+      bmBurgerBarsHover: {
+         background: '#a90000',
+      },
+      bmCrossButton: {
+         height: '24px',
+         width: '24px',
+      },
+      bmCross: {
+         background: '#bdc3c7',
+      },
+      bmMenuWrap: {
+         position: 'fixed',
+         height: '100%',
+      },
+      bmMenu: {
+         background: '#373a47',
+         padding: '2.5em 0 0',
+         fontSize: '1.15em',
+         background: '#fff',
+      },
+      bmMorphShape: {
+         fill: '#373a47',
+      },
+      bmItemList: {
+         color: '#b8b7ad',
+         display: 'flex',
+         flexDirection: 'column',
+      },
+      bmItem: {
+         display: 'inline-block',
+         padding: '16px 30px',
+      },
+
+      bmOverlay: {
+         background: 'rgba(0, 0, 0, 0.3)',
+      },
+   };
    return (
       <>
+         {
+            <Menu id={'sidebar'} styles={stylesMenu}>
+               {NavbarLinks.map((link, index) => (
+                  <Link
+                     href={link.link}
+                     className={`${styles.link} ${active == index && styles.active}`}
+                     key={index}
+                     onClick={() => setActive(index)}
+                  >
+                     {link.name}
+                  </Link>
+               ))}
+            </Menu>
+         }
          <nav className={styles.navWrap}>
             <div className={styles.navColor}>
                <div className={styles.containerTop}>
@@ -78,27 +166,23 @@ const Navbar = () => {
             </div>
             <div className={styles.containerBottom}>
                <div className={styles.flex}>
+                  <div className={styles.bar}></div>
                   <div className={styles.logo}>
                      <Link href={'/'}>
                         <Image src={'/assets/logo.png'} alt='' height={64} width={116} />
                      </Link>
                   </div>
                   <div className={styles.navLink}>
-                     <Link href={'/'} className={`${styles.link} ${styles.active}`}>
-                        Trang chủ
-                     </Link>
-                     <Link href={'/'} className={styles.link}>
-                        Giới thiệu
-                     </Link>
-                     <Link href={'/'} className={styles.link}>
-                        Điểm đến
-                     </Link>
-                     <Link href={'/'} className={styles.link}>
-                        Dịch vụ khác
-                     </Link>
-                     <Link href={'/'} className={styles.link}>
-                        Liên hệ
-                     </Link>
+                     {NavbarLinks.map((link, index) => (
+                        <Link
+                           href={link.link}
+                           className={`${styles.link} ${active == index && styles.active}`}
+                           key={index}
+                           onClick={() => setActive(index)}
+                        >
+                           {link.name}
+                        </Link>
+                     ))}
                      <input type='text' className={styles.search} placeholder='Tìm kiếm ...' />
                   </div>
                   {!loggedIn ? (

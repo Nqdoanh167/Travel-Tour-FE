@@ -7,10 +7,8 @@ import {useSelector} from 'react-redux';
 import {io} from 'socket.io-client';
 export const ChatContext = createContext();
 export const ChatContextProvider = ({children}) => {
-   const [userChats, setUserChats] = useState(null);
-   const [isUserChatsLoading, setIsUserChatsLoading] = useState(false);
-   const [newMessage, setNewMessage] = useState(null);
    const [socket, setSocket] = useState(null);
+   const [newMessage, setNewMessage] = useState(null);
    const [onlineUsers, setOnlineUsers] = useState([]);
    const [chat, setChat] = useState(null);
    const [userReceive, setUserReceive] = useState(null);
@@ -78,24 +76,11 @@ export const ChatContextProvider = ({children}) => {
          getChat(receiveId.receiveId);
       });
    }, [socket]);
-   const getUserChats = async () => {
-      const chats = await findUserChat(user.token);
-      if (chats?.status == 200) {
-         setUserChats(chats?.data.data);
-      }
-   };
-   useEffect(() => {
-      setIsUserChatsLoading(true);
-      getUserChats();
-      setIsUserChatsLoading(false);
-   }, [user]);
+
    return (
       <ChatContext.Provider
          value={{
-            userChats,
-            isUserChatsLoading,
             onlineUsers,
-            setUserChats,
             setChat,
             chat,
             setUserReceive,

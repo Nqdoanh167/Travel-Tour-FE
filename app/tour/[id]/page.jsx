@@ -53,10 +53,16 @@ export default function TourDetail() {
          <Spin spinning={loading} fullscreen={true} />
          <div className={styles.container}>
             <Row gutter={20}>
-               <Col span={17} className={styles.left}>
+               <Col xl={{span: 17}} xs={{span: 24}} className={styles.left}>
                   <div className={styles.imageWrap}>
-                     <div className={styles.imageCover}>
-                        <Image src={infoTour.imageCover} alt='Image Cover' width={903} height={400} />
+                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <Image
+                           src={infoTour.imageCover}
+                           alt='Image Cover'
+                           className={styles.imageCover}
+                           width={903}
+                           height={400}
+                        />
                      </div>
                      <div className={styles.imageSmall}>
                         {infoTour.images &&
@@ -178,7 +184,7 @@ export default function TourDetail() {
                      </Row>
                   </div>
                </Col>
-               <Col span={7}>
+               <Col xl={{span: 7}} xs={{span: 24}}>
                   <div className={styles.booking}>
                      <div className={styles.name}>{infoTour?.name}</div>
                      <div className={styles.content}>

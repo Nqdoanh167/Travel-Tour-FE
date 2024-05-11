@@ -92,3 +92,8 @@
    flex: 1;
    padding: 70px 0;
 }
+@media screen and (max-width: 768px) {
+   .user_view {
+      flex-direction: column;
+   }
+}

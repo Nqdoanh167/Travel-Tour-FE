@@ -23,8 +23,9 @@
 }
 .containerBottom {
    padding-top: 2px;
-   max-width: 1344px;
+   max-width: 1384px;
    margin: 0 auto;
+   padding: 0 20px;
 }
 .flex {
    display: flex;
@@ -36,14 +37,14 @@
    display: flex;
    align-items: center;
    gap: 20px;
-   .link {
-      text-decoration: none;
-      color: #000;
-      font-size: 16px;
-      font-weight: 600;
-      &.active {
-         color: var(--primary-color);
-      }
+}
+.link {
+   text-decoration: none;
+   color: #000;
+   font-size: 16px;
+   font-weight: 600;
+   &.active {
+      color: var(--primary-color);
    }
 }
 .btn_auth {
@@ -92,5 +93,35 @@
    }
    &:focus {
       width: 191px;
+   }
+}
+.bar {
+   display: none;
+   cursor: pointer;
+   font-size: 26px;
+   margin-right: 50px;
+}
+.menu {
+   .bm-burger-button {
+      display: none !important;
+   }
+}
+@media screen and (max-width: 768px) {
+   .navLink {
+      display: none;
+   }
+   .bar {
+      display: block;
+   }
+   .nameUser {
+      display: none;
+   }
+   .containerTop {
+      padding: 0 5px;
+   }
+   .stylesMenu {
+      .bm-burger-button {
+         display: none;
+      }
    }
 }

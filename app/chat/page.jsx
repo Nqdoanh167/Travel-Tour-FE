@@ -33,7 +33,8 @@ export default function ChatPage() {
       <div className={styles.container}>
          <Row>
             <Col
-               span={10}
+               xl={{span: 10}}
+               xs={{span: 10}}
                style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -47,7 +48,9 @@ export default function ChatPage() {
                         <UserChat userChat={userChat} key={index} onClick={() => handleChooseUser(userChat)} />
                      ))}
             </Col>
-            <Col span={14}>{chat && <ChatBox />}</Col>
+            <Col xl={{span: 14}} xs={{span: 24}}>
+               {chat && <ChatBox />}
+            </Col>
          </Row>
       </div>
    );

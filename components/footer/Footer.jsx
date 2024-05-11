@@ -38,7 +38,7 @@ const Footer = () => {
             </video>
             <div className={styles.container}>
                <Row gutter={20} style={{padding: '20px'}}>
-                  <Col span={9} className={styles.left}>
+                  <Col xl={{span: 9}} className={styles.left}>
                      <div className={styles.logo}>
                         <Image src={'/assets/logo.png'} alt='Logo' width={116} height={64} />
                      </div>
@@ -53,10 +53,10 @@ const Footer = () => {
                         <p>Facebook</p>
                      </div>
                   </Col>
-                  <Col span={15}>
+                  <Col xl={{span: 15}} xs={{span: 24}}>
                      <div className={styles.right}>
-                        <Row>
-                           <Col span={8} className={styles.linksWrap}>
+                        <Row style={{justifyContent: 'space-between'}}>
+                           <Col className={styles.linksWrap}>
                               <div className={styles.title}>
                                  <h4>Liên kết nhanh</h4>
                               </div>
@@ -67,18 +67,7 @@ const Footer = () => {
                                  </Link>
                               ))}
                            </Col>
-                           <Col span={8} className={styles.linksWrap}>
-                              <div className={styles.title}>
-                                 <h4>Liên kết nhanh</h4>
-                              </div>
-                              {FooterLinks.map((link, index) => (
-                                 <Link className={styles.links} href={link.link} key={index}>
-                                    <span>&#11162;</span>
-                                    <span>{link.title}</span>
-                                 </Link>
-                              ))}
-                           </Col>
-                           <Col span={8} className={styles.linksWrap}>
+                           <Col span={12} className={styles.linksWrap}>
                               <div className={styles.title}>
                                  <h4>Liên kết nhanh</h4>
                               </div>

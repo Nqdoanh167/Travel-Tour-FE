@@ -2,6 +2,7 @@
 
 .footerWrap {
    position: relative;
+   min-height: 300px;
 }
 .video {
    overflow: hidden;
@@ -17,8 +18,9 @@
    transform: translate(-50%, -50%);
    background-color: white;
    z-index: 1;
-   width: 1344px;
+   max-width: 1344px;
    border-radius: 5px;
+   width: 100%;
 }
 .left {
    display: flex;
@@ -48,4 +50,21 @@
    border-bottom-right-radius: 5px;
    text-align: center;
    color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+   .video {
+      display: none;
+   }
+   .container {
+      background-color: #ccc;
+      border-radius: 0;
+   }
+   .left {
+      display: none;
+   }
+   .license {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+   }
 }
