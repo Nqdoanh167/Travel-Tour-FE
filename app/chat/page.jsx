@@ -8,16 +8,26 @@ import ChatBox from '@/components/chatBox/ChatBox';
 import {useSelector} from 'react-redux';
 import {getManyUser} from '@/api/User';
 import {ChatContext} from '@/context/ChatContext';
+import {useRouter} from 'next/navigation';
 export default function ChatPage() {
+   const router = useRouter();
    const user = useSelector((state) => state.user);
-   const {setUserReceive, chat, listUserIdsChat} = useContext(ChatContext);
+   const {setUserReceive, conversation, listUserIdsChat} = useContext(ChatContext);
    const [listUserChat, setListUserChat] = useState([]);
    const getUsersOnline = async () => {
-      const users = await getManyUser(user.token, listUserIdsChat);
-      if (users?.status == 200) {
-         setListUserChat(users?.data.data);
+      if (listUserIdsChat && user.token) {
+         const users = await getManyUser(user.token, listUserIdsChat);
+         if (users?.status == 200) {
+            setListUserChat(users?.data.data);
+         }
       }
    };
+   useEffect(() => {
+      const loggedIn = user.token;
+      if (!loggedIn) {
+         router.push('/');
+      }
+   }, []);
    useEffect(() => {
       getUsersOnline();
    }, [listUserIdsChat]);
@@ -49,7 +59,7 @@ export default function ChatPage() {
                      ))}
             </Col>
             <Col xl={{span: 14}} xs={{span: 24}}>
-               {chat && <ChatBox />}
+               {conversation && <ChatBox />}
             </Col>
          </Row>
       </div>

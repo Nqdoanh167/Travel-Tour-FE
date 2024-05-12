@@ -6,23 +6,23 @@ import InputEmoji from 'react-input-emoji';
 import {IoIosSend} from 'react-icons/io';
 import {useSelector} from 'react-redux';
 import {ChatContext} from '@/context/ChatContext';
-import {createMessage, updateStatusMessagesOnChat} from '@/api/Message';
+import {createMessage, updateStatusMessagesOnConversation} from '@/api/Message';
 import {Image} from 'antd';
 import {IoIosCheckmarkCircleOutline} from 'react-icons/io';
 export default function ChatBox() {
    const [text, setText] = useState('');
    const user = useSelector((state) => state.user);
-   const {chat, userReceive, setNewMessage, setStatusMes} = useContext(ChatContext);
+   const {conversation, userReceive, setNewMessage, setStatusMes} = useContext(ChatContext);
    const [listMessage, setListMessage] = useState([]);
 
    useEffect(() => {
-      setListMessage(chat?.messages?.sort((a, b) => a.createAt - b.createAt));
-   }, [chat]);
+      setListMessage(conversation?.messages?.sort((a, b) => a.createAt - b.createAt));
+   }, [conversation]);
 
    const handleSendMessage = async (text) => {
       const res = await createMessage(
          {
-            chatId: chat._id,
+            conversationId: conversation._id,
             text,
          },
          user.token,
@@ -34,8 +34,11 @@ export default function ChatBox() {
       });
    };
    const handleClick = async () => {
-      if (chat) {
-         await updateStatusMessagesOnChat(user?.token, {receive: userReceive?._id, chatId: chat._id});
+      if (conversation) {
+         await updateStatusMessagesOnConversation(user?.token, {
+            receive: userReceive?._id,
+            conversationId: conversation._id,
+         });
          setStatusMes({
             key: Date.now(),
             receiveId: userReceive?._id,

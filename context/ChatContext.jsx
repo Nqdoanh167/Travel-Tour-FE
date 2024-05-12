@@ -1,47 +1,55 @@
 /** @format */
 'use client';
-import {createChat, findChat, findUserChat} from '@/api/Chat';
+import {createConversation, findUserConversation} from '@/api/Conversation';
+import {resetUser} from '@/redux/reducers/userSlide';
 import Message from '@/utils/Message';
+import Cookies from 'js-cookie';
 import {createContext, useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {io} from 'socket.io-client';
 export const ChatContext = createContext();
 export const ChatContextProvider = ({children}) => {
+   const dispatch = useDispatch();
    const [socket, setSocket] = useState(null);
    const [newMessage, setNewMessage] = useState(null);
    const [onlineUsers, setOnlineUsers] = useState([]);
-   const [chat, setChat] = useState(null);
+   const [conversation, setConversation] = useState(null);
    const [userReceive, setUserReceive] = useState(null);
    const [badge, setBadge] = useState(0);
-   const [listUserIdsChat, setListUserIdsChat] = useState([]);
+   const [listUserIdsChat, setListUserIdsChat] = useState(['663454486ecb2c72c010727d']);
    const [statusMes, setStatusMes] = useState(null);
+   const [logout, setLogout] = useState(null);
    const user = useSelector((state) => state.user);
    const getChat = async (id) => {
-      const res = await createChat(user.token, {receiveId: id});
+      const res = await createConversation(user.token, {receiveId: id});
       if (res?.status == 200 || res?.status == 201) {
-         setChat(res?.data.data.chat);
+         setConversation(res?.data.data);
       }
    };
    const getListUserIds = async () => {
-      const res = await findUserChat(user.token);
-      if (res?.status == 200) setListUserIdsChat(res?.data.data);
+      const res = await findUserConversation(user.token);
+      if (res?.status == 200 && res?.data.data) setListUserIdsChat([listUserIdsChat, ...res?.data.data]);
    };
 
    useEffect(() => {
       if (userReceive) getChat(userReceive._id);
    }, [newMessage, userReceive]);
    useEffect(() => {
-      const newSocket = io(process.env.BASE_URL);
-      setSocket(newSocket);
-      getListUserIds();
-      return () => {
-         newSocket.disconnect();
-      };
+      if (user.token) {
+         const newSocket = io(process.env.BASE_URL);
+         setSocket(newSocket);
+         getListUserIds();
+         console.log('check');
+         return () => {
+            newSocket.disconnect();
+         };
+      }
    }, [user]);
    useEffect(() => {
       if (socket === null) return;
 
       socket.emit('addNewUser', user?.id);
+
       socket.on('getOnlineUsers', (data) => {
          setOnlineUsers(data);
       });
@@ -51,7 +59,19 @@ export const ChatContextProvider = ({children}) => {
    }, [socket]);
    useEffect(() => {
       if (socket === null) return;
-      const receiveId = chat?.members?.find((id) => id !== user?.id);
+      socket.on('logout', (data) => {
+         console.log('check');
+         setLogout({
+            key: Date.now(),
+         });
+      });
+      return () => {
+         socket.off('logout');
+      };
+   }, [socket]);
+   useEffect(() => {
+      if (socket === null) return;
+      const receiveId = conversation?.members?.find((id) => id !== user?.id);
       const senderUser = {
          _id: user.id,
          name: user.name,
@@ -76,13 +96,24 @@ export const ChatContextProvider = ({children}) => {
          getChat(receiveId.receiveId);
       });
    }, [socket]);
-
+   useEffect(() => {
+      setTimeout(() => {
+         if (logout) {
+            new Message('Tài khoản của bạn đã đăng nhập ở nơi khác.Xin vui lòng thử lại!').error();
+            dispatch(resetUser());
+            Cookies.remove('jwt');
+            window.setTimeout(() => {
+               location.reload();
+            }, 2000);
+         }
+      }, 5000);
+   }, [logout]);
    return (
       <ChatContext.Provider
          value={{
             onlineUsers,
-            setChat,
-            chat,
+            setConversation,
+            conversation,
             setUserReceive,
             userReceive,
             setNewMessage,
@@ -90,6 +121,7 @@ export const ChatContextProvider = ({children}) => {
             listUserIdsChat,
             setStatusMes,
             statusMes,
+            logout,
          }}
       >
          {children}

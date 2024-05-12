@@ -28,7 +28,7 @@ export const getMessages = async (token, chatId) => {
    }
 };
 
-export const updateStatusMessagesOnChat = async (token, data) => {
+export const updateStatusMessagesOnConversation = async (token, data) => {
    try {
       let res = await BaseApi.post(`/message/update-status`, data, {
          headers: {

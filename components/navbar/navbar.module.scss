@@ -26,11 +26,13 @@
    max-width: 1384px;
    margin: 0 auto;
    padding: 0 20px;
+   height: 71px;
 }
 .flex {
    display: flex;
    align-items: center;
    justify-content: space-between;
+   height: 100%;
 }
 
 .navLink {
@@ -106,6 +108,11 @@
       display: none !important;
    }
 }
+.login_register {
+   display: flex;
+   gap: 10px;
+}
+
 @media screen and (max-width: 768px) {
    .navLink {
       display: none;
@@ -123,5 +130,8 @@
       .bm-burger-button {
          display: none;
       }
+   }
+   .logo {
+      display: none;
    }
 }

@@ -5,7 +5,7 @@ import styles from './tourDetail.module.scss';
 import {Button, Col, Form, Image, Rate, Row, Spin} from 'antd';
 import Booking from '@/components/booking/Booking';
 import {getTourBySlug} from '@/api/Tour';
-import {useParams} from 'next/navigation';
+import {useParams, useRouter} from 'next/navigation';
 import TextArea from 'antd/es/input/TextArea';
 import {createReview, getAllReviewOnTour, getReviewOnTour} from '@/api/Review';
 import {useSelector} from 'react-redux';
@@ -13,6 +13,7 @@ import Message from '@/utils/Message';
 
 export default function TourDetail() {
    const params = useParams();
+   const router = useRouter();
    const [openModalBooking, setOpenModalBooking] = useState(false);
    const [infoTour, setInfoTour] = useState([]);
    const [listReview, setListReview] = useState([]);
@@ -25,10 +26,12 @@ export default function TourDetail() {
    const getPage = async () => {
       const tour = await getTourBySlug(params.id);
       const allReviewOnTour = await getAllReviewOnTour(tour?.data.data._id);
-      const reviewOnTour = await getReviewOnTour(tour?.data.data._id, user.token);
+      if (user.token) {
+         const reviewOnTour = await getReviewOnTour(tour?.data.data._id, user.token);
+         setReview(reviewOnTour?.data.data);
+      }
       setInfoTour(tour?.data.data);
       setListReview(allReviewOnTour?.data.data);
-      setReview(reviewOnTour?.data.data);
    };
 
    const handleReview = async (values) => {
@@ -46,7 +49,7 @@ export default function TourDetail() {
       setTimeout(() => {
          setLoading(false);
       }, 1500);
-   }, []);
+   }, [user]);
 
    return (
       <>
@@ -57,7 +60,7 @@ export default function TourDetail() {
                   <div className={styles.imageWrap}>
                      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <Image
-                           src={infoTour.imageCover}
+                           src={infoTour?.imageCover}
                            alt='Image Cover'
                            className={styles.imageCover}
                            width={903}
@@ -65,8 +68,8 @@ export default function TourDetail() {
                         />
                      </div>
                      <div className={styles.imageSmall}>
-                        {infoTour.images &&
-                           infoTour.images.map((image, index) => (
+                        {infoTour?.images &&
+                           infoTour?.images.map((image, index) => (
                               <Image src={image} alt='Image Small' width={213} height={120} key={index} />
                            ))}
                      </div>
@@ -74,7 +77,7 @@ export default function TourDetail() {
                   <div className={styles.descTour}>
                      <div className={styles.title}>Chi tiết</div>
                      <div className={styles.content} style={{whiteSpace: 'pre-wrap'}}>
-                        {infoTour.description && infoTour.description.split('. ').join('.\n')}
+                        {infoTour?.description && infoTour?.description.split('. ').join('.\n')}
                      </div>
                   </div>
                   <div className={styles.reviewTour}>
@@ -108,79 +111,81 @@ export default function TourDetail() {
                               )}
                            </div>
                         </Col>
-                        <Col span={12}>
-                           <div className={styles.title}>Review của bạn</div>
-                           <div className={styles.content}>
-                              <div className={styles.content_item}>
-                                 <div className={styles.user}>
-                                    <div>
-                                       <Image
-                                          src={user.photo}
-                                          alt='User'
-                                          width={20}
-                                          height={20}
-                                          className={styles.imgUser}
-                                       />
+                        {user.token && (
+                           <Col span={12}>
+                              <div className={styles.title}>Review của bạn</div>
+                              <div className={styles.content}>
+                                 <div className={styles.content_item}>
+                                    <div className={styles.user}>
+                                       <div>
+                                          <Image
+                                             src={user.photo}
+                                             alt='User'
+                                             width={20}
+                                             height={20}
+                                             className={styles.imgUser}
+                                          />
+                                       </div>
+                                       <div className={styles.nameUser}>{user?.name}</div>
                                     </div>
-                                    <div className={styles.nameUser}>{user?.name}</div>
-                                 </div>
 
-                                 <Form
-                                    labelCol={{
-                                       span: 0,
-                                    }}
-                                    wrapperCol={{
-                                       span: 24,
-                                    }}
-                                    layout='horizontal'
-                                    style={{
-                                       maxHeight: 200,
-                                       maxWidth: 500,
-                                       fontWeight: '500',
-                                       fontSize: '26px',
-                                       marginTop: '20px',
-                                    }}
-                                    onFinish={handleReview}
-                                    initialValues={review}
-                                    disabled={review}
-                                 >
-                                    <Form.Item
-                                       name='rating'
-                                       style={{
-                                          display: 'inline-block',
-                                          width: '100%',
+                                    <Form
+                                       labelCol={{
+                                          span: 0,
                                        }}
-                                    >
-                                       <Rate allowHalf style={{fontSize: '20px'}} defaultValue={review?.rating} />
-                                    </Form.Item>
-                                    <Form.Item
-                                       name='review'
-                                       rules={[
-                                          {
-                                             required: true,
-                                             message: 'Vui lòng thêm nhận xét của bạn',
-                                          },
-                                       ]}
-                                       style={{
-                                          display: 'inline-block',
-                                          width: '100%',
+                                       wrapperCol={{
+                                          span: 24,
                                        }}
+                                       layout='horizontal'
+                                       style={{
+                                          maxHeight: 200,
+                                          maxWidth: 500,
+                                          fontWeight: '500',
+                                          fontSize: '26px',
+                                          marginTop: '20px',
+                                       }}
+                                       onFinish={handleReview}
+                                       initialValues={review}
+                                       disabled={review}
                                     >
-                                       <TextArea
-                                          rows={4}
-                                          placeholder='Thêm nhận xét của bạn...'
-                                          className={styles.input_form}
-                                       />
-                                    </Form.Item>
-                                    <Form.Item style={{textAlign: 'center'}}>
-                                       <Button type='primary' htmlType='submit' className={styles.btn_submit}>
-                                          Đánh giá
-                                       </Button>
-                                    </Form.Item>
-                                 </Form>
+                                       <Form.Item
+                                          name='rating'
+                                          style={{
+                                             display: 'inline-block',
+                                             width: '100%',
+                                          }}
+                                       >
+                                          <Rate allowHalf style={{fontSize: '20px'}} defaultValue={review?.rating} />
+                                       </Form.Item>
+                                       <Form.Item
+                                          name='review'
+                                          rules={[
+                                             {
+                                                required: true,
+                                                message: 'Vui lòng thêm nhận xét của bạn',
+                                             },
+                                          ]}
+                                          style={{
+                                             display: 'inline-block',
+                                             width: '100%',
+                                          }}
+                                       >
+                                          <TextArea
+                                             rows={4}
+                                             placeholder='Thêm nhận xét của bạn...'
+                                             className={styles.input_form}
+                                          />
+                                       </Form.Item>
+                                       <Form.Item style={{textAlign: 'center'}}>
+                                          <Button type='primary' htmlType='submit' className={styles.btn_submit}>
+                                             Đánh giá
+                                          </Button>
+                                       </Form.Item>
+                                    </Form>
+                                 </div>
                               </div>
-                           </div>
-                        </Col>
+                           </Col>
+                        )}
                      </Row>
                   </div>
                </Col>
@@ -196,6 +201,9 @@ export default function TourDetail() {
                      <div className={styles.price}>{infoTour?.price}.000 ₫</div>
                      <button className={styles.btn_booking} onClick={handleBooking}>
                         Đặt Tour
+                     </button>
+                     <button className={styles.btn_contact} onClick={() => router.push('/chat')}>
+                        Liên hệ với admin
                      </button>
                   </div>
                </Col>

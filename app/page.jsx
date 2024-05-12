@@ -1,13 +1,19 @@
 /** @format */
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from './page.module.scss';
 import TourCard from '@/components/tourCard/TourCard';
 import {Col, Row, Spin} from 'antd';
 import {getTopTours} from '@/api/Tour';
+import {ChatContext} from '@/context/ChatContext';
+import Message from '@/utils/Message';
+import {resetUser} from '@/redux/reducers/userSlide';
+import Cookies from 'js-cookie';
+import {useDispatch} from 'react-redux';
 const Home = () => {
    const [listTours, setListTours] = useState([]);
    const [loading, setLoading] = useState(false);
+
    const getAll = async () => {
       const res = await getTopTours();
       setListTours(res?.data);
@@ -19,6 +25,7 @@ const Home = () => {
          setLoading(false);
       }, 1000);
    }, []);
+
    return (
       <>
          <div>

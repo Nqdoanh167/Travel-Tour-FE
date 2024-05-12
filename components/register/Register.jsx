@@ -30,9 +30,9 @@ export default function Register({openModalRegister, setOpenModalRegister, setOp
          <Modal
             title='Đăng ký'
             open={openModalRegister}
-            style={{textAlign: 'center', maxWidth: '500px', marginTop: '50px'}}
             footer={null}
             onCancel={handleCancel}
+            className={styles.modal_register}
          >
             <Form
                name='basic'

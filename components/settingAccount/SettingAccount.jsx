@@ -1,9 +1,9 @@
 /** @format */
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './setting.module.scss';
 import {Button, Form, Input, Spin, Upload} from 'antd';
-import {LogoutApi, UpdateMeApi, UpdatePasswordApi} from '@/api/User';
+import {UpdateMeApi, UpdatePasswordApi} from '@/api/User';
 import {useDispatch, useSelector} from 'react-redux';
 import {resetUser, updateUser} from '@/redux/reducers/userSlide';
 import Cookies from 'js-cookie';
@@ -12,17 +12,16 @@ import Message from '@/utils/Message';
 export default function SettingAccount() {
    const [loading, setLoading] = useState(false);
    const dispatch = useDispatch();
+
    const handleLogout = async () => {
       setLoading(true);
-      const res = await LogoutApi();
-      if (res?.status == 200) {
-         window.setTimeout(() => {
-            location.reload();
-         }, 1000);
-         dispatch(resetUser());
-         Cookies.remove('jwt');
-      }
+      window.setTimeout(() => {
+         location.reload();
+      }, 1000);
+      dispatch(resetUser());
+      Cookies.remove('jwt');
    };
+
    const user = useSelector((state) => state.user);
    const normFile = (e) => {
       if (Array.isArray(e)) {

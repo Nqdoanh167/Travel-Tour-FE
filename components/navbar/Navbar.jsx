@@ -169,7 +169,7 @@ const Navbar = () => {
                   <div className={styles.bar}></div>
                   <div className={styles.logo}>
                      <Link href={'/'}>
-                        <Image src={'/assets/logo.png'} alt='' height={64} width={116} />
+                        <Image src={'/assets/logo.png'} alt='' height={64} width={116} className={styles.img_logo} />
                      </Link>
                   </div>
                   <div className={styles.navLink}>
@@ -186,7 +186,7 @@ const Navbar = () => {
                      <input type='text' className={styles.search} placeholder='Tìm kiếm ...' />
                   </div>
                   {!loggedIn ? (
-                     <div style={{display: 'flex', gap: '10px'}}>
+                     <div className={styles.login_register}>
                         <button className={styles.btn_auth} onClick={handleLogin}>
                            Đăng nhập
                         </button>

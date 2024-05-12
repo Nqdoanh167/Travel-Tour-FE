@@ -5,6 +5,7 @@ import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/footer/Footer';
 import ReduxProvider from '@/redux/provider';
 import {ChatContextProvider} from '@/context/ChatContext';
+import {AppContextProvider} from '@/context/AppContext';
 
 const inter = Inter({subsets: ['latin']});
 
@@ -17,13 +18,15 @@ export default function RootLayout({children}) {
    return (
       <html lang='en'>
          <body className={inter.className}>
-            <ReduxProvider>
-               <ChatContextProvider>
-                  <Navbar />
-                  <div style={{marginTop: '89px'}}>{children}</div>
-                  <Footer />
-               </ChatContextProvider>
-            </ReduxProvider>
+            <AppContextProvider>
+               <ReduxProvider>
+                  <ChatContextProvider>
+                     <Navbar />
+                     <div style={{marginTop: '89px'}}>{children}</div>
+                     <Footer />
+                  </ChatContextProvider>
+               </ReduxProvider>
+            </AppContextProvider>
          </body>
       </html>
    );

@@ -1,6 +1,6 @@
 /** @format */
 'use client';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Modal, Button, Checkbox, Form, Input, Spin} from 'antd';
 
 import styles from './login.module.scss';
@@ -9,6 +9,7 @@ import Message from '@/utils/Message';
 import Cookies from 'js-cookie';
 import {useDispatch} from 'react-redux';
 import {updateUser} from '@/redux/reducers/userSlide';
+import {ChatContext} from '@/context/ChatContext';
 export default function Login({openModalLogin, setOpenModalLogin}) {
    const [loading, setLoading] = useState(false);
    const dispatch = useDispatch();
@@ -19,11 +20,13 @@ export default function Login({openModalLogin, setOpenModalLogin}) {
    const handleLogin = async (values) => {
       setLoading(true);
       const res = await LoginApi(values);
+      console.log('checklogout');
       if (res?.status == 200) {
          Cookies.set('jwt', res.data.token, {
             expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
          });
          dispatch(updateUser({...res?.data.data.user, token: res.data.token}));
+
          new Message('Đăng nhập thành công!').success();
          window.setTimeout(() => {
             location.assign('/');
@@ -39,9 +42,9 @@ export default function Login({openModalLogin, setOpenModalLogin}) {
          <Modal
             title='Đăng nhập'
             open={openModalLogin}
-            style={{textAlign: 'center', maxWidth: '500px', marginTop: '50px'}}
             footer={null}
             onCancel={handleCancel}
+            className={styles.modal_login}
          >
             <Form
                name='basic'
