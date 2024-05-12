@@ -60,7 +60,7 @@ export default function TourDetail() {
          setLoading(false);
       }, 1500);
    }, [user]);
-
+   console.log('listReview', listReview);
    return (
       <>
          <Spin spinning={loading} fullscreen={true} />
@@ -101,7 +101,7 @@ export default function TourDetail() {
                                        <div className={styles.user}>
                                           <div>
                                              <Image
-                                                src={review?.photo}
+                                                src={review?.user.photo}
                                                 alt='User'
                                                 width={20}
                                                 height={20}
