@@ -101,7 +101,7 @@ export default function TourDetail() {
                                        <div className={styles.user}>
                                           <div>
                                              <Image
-                                                src={user.photo}
+                                                src={review?.photo}
                                                 alt='User'
                                                 width={20}
                                                 height={20}
