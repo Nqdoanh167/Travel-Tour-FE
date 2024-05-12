@@ -9,8 +9,7 @@ import Message from '@/utils/Message';
 import Cookies from 'js-cookie';
 import {useDispatch} from 'react-redux';
 import {updateUser} from '@/redux/reducers/userSlide';
-import {ChatContext} from '@/context/ChatContext';
-export default function Login({openModalLogin, setOpenModalLogin}) {
+export default function Login({openModalLogin, setOpenModalLogin, locationBack}) {
    const [loading, setLoading] = useState(false);
    const dispatch = useDispatch();
    const handleCancel = () => {
@@ -29,7 +28,9 @@ export default function Login({openModalLogin, setOpenModalLogin}) {
 
          new Message('Đăng nhập thành công!').success();
          window.setTimeout(() => {
-            location.assign('/');
+            if (locationBack) {
+               location.assign(`${locationBack}`);
+            } else location.assign('/');
          }, 1500);
       }
       setLoading(false);

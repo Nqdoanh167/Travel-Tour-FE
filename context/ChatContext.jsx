@@ -1,6 +1,7 @@
 /** @format */
 'use client';
 import {createConversation, findUserConversation} from '@/api/Conversation';
+import {getAdmin, getAllIdUser} from '@/api/User';
 import {resetUser} from '@/redux/reducers/userSlide';
 import Message from '@/utils/Message';
 import Cookies from 'js-cookie';
@@ -16,7 +17,7 @@ export const ChatContextProvider = ({children}) => {
    const [conversation, setConversation] = useState(null);
    const [userReceive, setUserReceive] = useState(null);
    const [badge, setBadge] = useState(0);
-   const [listUserIdsChat, setListUserIdsChat] = useState(['663454486ecb2c72c010727d']);
+   const [listUserIdsChat, setListUserIdsChat] = useState([]);
    const [statusMes, setStatusMes] = useState(null);
    const [logout, setLogout] = useState(null);
    const user = useSelector((state) => state.user);
@@ -27,23 +28,31 @@ export const ChatContextProvider = ({children}) => {
       }
    };
    const getListUserIds = async () => {
-      const res = await findUserConversation(user.token);
-      if (res?.status == 200 && res?.data.data) setListUserIdsChat([listUserIdsChat, ...res?.data.data]);
+      if (user.role === 'admin') {
+         const res = await getAllIdUser(user.token);
+         if (res?.status == 200) setListUserIdsChat(res?.data.data);
+      }
    };
-
+   const getInfoAdmin = async () => {
+      const res = await getAdmin(user.token);
+      if (res?.status == 200) setListUserIdsChat([res?.data.data._id]);
+   };
+   useEffect(() => {
+      if (user.token) {
+         getInfoAdmin();
+      }
+   }, [user]);
    useEffect(() => {
       if (userReceive) getChat(userReceive._id);
    }, [newMessage, userReceive]);
    useEffect(() => {
-      if (user.token) {
-         const newSocket = io(process.env.BASE_URL);
-         setSocket(newSocket);
-         getListUserIds();
-         console.log('check');
-         return () => {
-            newSocket.disconnect();
-         };
-      }
+      const newSocket = io(process.env.BASE_URL);
+      setSocket(newSocket);
+      getListUserIds();
+
+      return () => {
+         newSocket.disconnect();
+      };
    }, [user]);
    useEffect(() => {
       if (socket === null) return;
@@ -108,6 +117,7 @@ export const ChatContextProvider = ({children}) => {
          }
       }, 5000);
    }, [logout]);
+
    return (
       <ChatContext.Provider
          value={{

@@ -1,7 +1,7 @@
 /** @format */
 'use client';
 import React from 'react';
-import {FaFacebook, FaInstagram, FaLinkedin, FaLocationArrow, FaMobileAlt} from 'react-icons/fa';
+
 import styles from './footer.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';

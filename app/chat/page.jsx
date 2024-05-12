@@ -13,13 +13,12 @@ export default function ChatPage() {
    const router = useRouter();
    const user = useSelector((state) => state.user);
    const {setUserReceive, conversation, listUserIdsChat} = useContext(ChatContext);
-   const [listUserChat, setListUserChat] = useState([]);
+   const [listUserChat, setListUserChat] = useState(null);
+
    const getUsersOnline = async () => {
-      if (listUserIdsChat && user.token) {
-         const users = await getManyUser(user.token, listUserIdsChat);
-         if (users?.status == 200) {
-            setListUserChat(users?.data.data);
-         }
+      const users = await getManyUser(user.token, listUserIdsChat);
+      if (users?.status == 200) {
+         setListUserChat(users?.data.data);
       }
    };
    useEffect(() => {
@@ -53,7 +52,7 @@ export default function ChatPage() {
             >
                {listUserChat &&
                   listUserChat
-                     .filter((userChat) => userChat._id !== user.id)
+                     .filter((userChat) => userChat?._id !== user.id)
                      .map((userChat, index) => (
                         <UserChat userChat={userChat} key={index} onClick={() => handleChooseUser(userChat)} />
                      ))}

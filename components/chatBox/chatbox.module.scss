@@ -4,6 +4,9 @@
    border-radius: 20px;
    border: 1px solid #f1eded;
 }
+.active {
+   border: 1px solid var(--primary-color);
+}
 .header {
    text-align: center;
    background-color: #ededed;

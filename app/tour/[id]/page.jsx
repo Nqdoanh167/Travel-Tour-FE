@@ -5,23 +5,33 @@ import styles from './tourDetail.module.scss';
 import {Button, Col, Form, Image, Rate, Row, Spin} from 'antd';
 import Booking from '@/components/booking/Booking';
 import {getTourBySlug} from '@/api/Tour';
-import {useParams, useRouter} from 'next/navigation';
+import {useParams, usePathname, useRouter} from 'next/navigation';
 import TextArea from 'antd/es/input/TextArea';
 import {createReview, getAllReviewOnTour, getReviewOnTour} from '@/api/Review';
 import {useSelector} from 'react-redux';
 import Message from '@/utils/Message';
+import Login from '@/components/login/Login';
 
 export default function TourDetail() {
    const params = useParams();
    const router = useRouter();
+   const location = usePathname();
    const [openModalBooking, setOpenModalBooking] = useState(false);
    const [infoTour, setInfoTour] = useState([]);
    const [listReview, setListReview] = useState([]);
    const [review, setReview] = useState(null);
    const [loading, setLoading] = useState(true);
+   const [openModalLogin, setOpenModalLogin] = useState(false);
    const user = useSelector((state) => state.user);
    const handleBooking = () => {
-      setOpenModalBooking(true);
+      if (!user.token) {
+         setOpenModalLogin(true);
+      } else setOpenModalBooking(true);
+   };
+   const handleContact = () => {
+      if (!user.token) {
+         setOpenModalLogin(true);
+      } else router.push('/chat');
    };
    const getPage = async () => {
       const tour = await getTourBySlug(params.id);
@@ -202,7 +212,7 @@ export default function TourDetail() {
                      <button className={styles.btn_booking} onClick={handleBooking}>
                         Đặt Tour
                      </button>
-                     <button className={styles.btn_contact} onClick={() => router.push('/chat')}>
+                     <button className={styles.btn_contact} onClick={handleContact}>
                         Liên hệ với admin
                      </button>
                   </div>
@@ -211,6 +221,9 @@ export default function TourDetail() {
          </div>
          {openModalBooking && (
             <Booking openModalBooking={openModalBooking} setOpenModalBooking={setOpenModalBooking} tour={infoTour} />
+         )}
+         {openModalLogin && (
+            <Login openModalLogin={openModalLogin} setOpenModalLogin={setOpenModalLogin} locationBack={location} />
          )}
       </>
    );

@@ -132,6 +132,30 @@ export const getGuide = async (token) => {
       new Message('Lấy danh sách hướng dẫn viên thất bại!').error();
    }
 };
+export const getAllIdUser = async (token) => {
+   try {
+      let res = await BaseApi.get(`/user/get-all-id`, {
+         headers: {
+            Authorization: `Bearer ${token}`,
+         },
+      });
+      return res;
+   } catch (error) {
+      new Message('Lấy danh sách id user thất bại!').error();
+   }
+};
+export const getAdmin = async (token) => {
+   try {
+      let res = await BaseApi.get(`/user/get-admin`, {
+         headers: {
+            Authorization: `Bearer ${token}`,
+         },
+      });
+      return res;
+   } catch (error) {
+      new Message('Lấy thông tin admin thất bại!').error();
+   }
+};
 export const getManyUser = async (token, data) => {
    try {
       let res = await BaseApi.post(`/user/get-many-user`, data, {
