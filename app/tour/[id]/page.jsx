@@ -60,7 +60,6 @@ export default function TourDetail() {
          setLoading(false);
       }, 1500);
    }, [user]);
-   console.log('listReview', listReview);
    return (
       <>
          <Spin spinning={loading} fullscreen={true} />
@@ -95,7 +94,7 @@ export default function TourDetail() {
                         <Col span={12}>
                            <div className={styles.title}>Review</div>
                            <div className={styles.content}>
-                              {listReview.length > 0 ? (
+                              {listReview?.length > 0 ? (
                                  listReview.map((review, index) => (
                                     <div className={styles.content_item} key={index}>
                                        <div className={styles.user}>
@@ -111,7 +110,12 @@ export default function TourDetail() {
                                           <div className={styles.nameUser}>{review?.user.name}</div>
                                        </div>
                                        <div className={styles.rating}>
-                                          <Rate allowHalf defaultValue={review.rating} style={{fontSize: '16px'}} />
+                                          <Rate
+                                             allowHalf
+                                             defaultValue={review?.rating}
+                                             style={{fontSize: '16px'}}
+                                             key={2}
+                                          />
                                        </div>
                                        <div className={styles.comment}>{review.review}</div>
                                     </div>
@@ -205,11 +209,16 @@ export default function TourDetail() {
                      <div className={styles.content}>
                         <p>Số người tham gia : {infoTour?.maxGroupSize}</p>
                         <p>Thời gian : {infoTour?.duration}</p>
-                        <p>Độ khó : {infoTour?.difficulty}</p>
-                        <p>Quãng đường : {infoTour?.distance}</p>
+                        <p>Quãng đường : {`${infoTour?.distance} km`}</p>
+                        <p>Thời gian : {infoTour?.startDates}</p>
                      </div>
                      <div className={styles.price}>{infoTour?.price}.000 ₫</div>
-                     <button className={styles.btn_booking} onClick={handleBooking}>
+
+                     <button
+                        className={styles.btn_booking}
+                        onClick={handleBooking}
+                        disabled={infoTour?.startDates?.length === 0 ? true : false}
+                     >
                         Đặt Tour
                      </button>
                      <button className={styles.btn_contact} onClick={handleContact}>

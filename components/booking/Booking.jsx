@@ -3,7 +3,7 @@
 import React, {useState} from 'react';
 
 import styles from './booking.module.scss';
-import {Modal, Select} from 'antd';
+import {Modal, Rate, Select} from 'antd';
 import {Button, Form, Input} from 'antd';
 import Image from 'next/image';
 import {useSelector} from 'react-redux';
@@ -29,6 +29,9 @@ export default function Booking({openModalBooking, setOpenModalBooking, tour}) {
          // send Email
       }
       setOpenModalBooking(false);
+      setTimeout(() => {
+         window.location.reload();
+      }, 1000);
    };
    return (
       <Modal
@@ -55,8 +58,10 @@ export default function Booking({openModalBooking, setOpenModalBooking, tour}) {
                   <div className={styles.content}>
                      <p>Số người tham gia : {tour?.maxGroupSize}</p>
                      <p>Thời gian : {tour?.duration}</p>
-                     <p>Độ khó : {tour?.difficulty}</p>
                      <p>Quãng đường : {tour?.distance}</p>
+                     <p>
+                        Đánh giá: <Rate allowHalf defaultValue={tour?.ratingsAverage} style={{fontSize: '16px'}} />
+                     </p>
                   </div>
                   <div className={styles.price}>{tour?.price}.000 ₫</div>
                </div>

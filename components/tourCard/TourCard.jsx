@@ -1,6 +1,6 @@
 /** @format */
 'use client';
-import {Card} from 'antd';
+import {Card, Rate} from 'antd';
 import React from 'react';
 import styles from './tourCard.module.scss';
 import {useRouter} from 'next/navigation';
@@ -22,8 +22,10 @@ export default function TourCard({tour}) {
          <div className={styles.content}>
             <p>Số người tham gia : {tour?.maxGroupSize}</p>
             <p>Thời gian : {tour?.duration}</p>
-            <p>Độ khó : {tour?.difficulty}</p>
             <p>Quãng đường : {tour?.distance}</p>
+            <p>
+               Đánh giá: <Rate allowHalf defaultValue={tour?.ratingsAverage} style={{fontSize: '16px'}} />
+            </p>
          </div>
          <div className={styles.price}>{tour?.price}.000 ₫</div>
       </Card>
