@@ -210,7 +210,6 @@ export default function TourDetail() {
                         <p>Số người tham gia : {infoTour?.maxGroupSize}</p>
                         <p>Thời gian : {infoTour?.duration}</p>
                         <p>Quãng đường : {`${infoTour?.distance} km`}</p>
-                        <p>Thời gian : {infoTour?.startDates}</p>
                      </div>
                      <div className={styles.price}>{infoTour?.price}.000 ₫</div>
 
