@@ -33,7 +33,7 @@ export const getAllBooking = async (query, token) => {
       const res = await queryData;
       return res.data;
    } catch (error) {
-      new Message('Lỗi!').error();
+      // new Message('Lỗi!').error();
    }
 };
 export const getMyBooking = async (query, token) => {
@@ -55,7 +55,7 @@ export const getMyBooking = async (query, token) => {
       const res = await queryData;
       return res.data;
    } catch (error) {
-      new Message('Lỗi!').error();
+      // new Message('Lỗi!').error();
    }
 };
 export const deleteBooking = async (idBooking, token) => {

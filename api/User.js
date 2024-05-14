@@ -69,7 +69,7 @@ export const getAllUsers = async (query, token) => {
       const res = await queryData;
       return res.data;
    } catch (error) {
-      new Message('Lỗi!').error();
+      // new Message('Lỗi!').error();
    }
 };
 export const createUser = async (data, token) => {
@@ -93,7 +93,7 @@ export const getUserById = async (idUser, token) => {
       });
       return res;
    } catch (error) {
-      new Message('Lỗi!').error();
+      // new Message('Lỗi!').error();
    }
 };
 export const deleteUser = async (idUser, token) => {
@@ -129,7 +129,7 @@ export const getGuide = async (token) => {
       });
       return res;
    } catch (error) {
-      new Message('Lấy danh sách hướng dẫn viên thất bại!').error();
+      // new Message('Lấy danh sách hướng dẫn viên thất bại!').error();
    }
 };
 export const getAllIdUser = async (token) => {
@@ -141,7 +141,7 @@ export const getAllIdUser = async (token) => {
       });
       return res;
    } catch (error) {
-      new Message('Lấy danh sách id user thất bại!').error();
+      // new Message('Lấy danh sách id user thất bại!').error();
    }
 };
 export const getAdmin = async (token) => {
@@ -153,7 +153,7 @@ export const getAdmin = async (token) => {
       });
       return res;
    } catch (error) {
-      new Message('Lấy thông tin admin thất bại!').error();
+      // new Message('Lấy thông tin admin thất bại!').error();
    }
 };
 export const getManyUser = async (token, data) => {
@@ -165,6 +165,6 @@ export const getManyUser = async (token, data) => {
       });
       return res;
    } catch (error) {
-      new Message('Lấy danh sách user thất bại!').error();
+      // new Message('Lấy danh sách user thất bại!').error();
    }
 };

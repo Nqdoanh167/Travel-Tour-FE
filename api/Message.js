@@ -12,7 +12,7 @@ export const createMessage = async (data, token) => {
       });
       return res;
    } catch (error) {
-      new Message('Thêm mới message thất bại!').error();
+      // new Message('Thêm mới message thất bại!').error();
    }
 };
 export const getMessages = async (token, chatId) => {
@@ -24,7 +24,7 @@ export const getMessages = async (token, chatId) => {
       });
       return res;
    } catch (error) {
-      new Message('Lấy thông tin messages  thất bại!').error();
+      // new Message('Lấy thông tin messages  thất bại!').error();
    }
 };
 
@@ -37,6 +37,6 @@ export const updateStatusMessagesOnConversation = async (token, data) => {
       });
       return res;
    } catch (error) {
-      new Message('Update status message thất bại!').error();
+      // new Message('Update status message thất bại!').error();
    }
 };

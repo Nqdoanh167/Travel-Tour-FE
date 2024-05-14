@@ -14,7 +14,7 @@ export const getAllTours = async (query) => {
       const res = await queryData;
       return res.data;
    } catch (error) {
-      new Message('Lỗi!').error();
+      // new Message('Lỗi!').error();
    }
 };
 export const getTopTours = async (query) => {
@@ -28,7 +28,7 @@ export const getTopTours = async (query) => {
       const res = await queryData;
       return res.data;
    } catch (error) {
-      new Message('Lỗi!').error();
+      // new Message('Lỗi!').error();
    }
 };
 export const getTourBySlug = async (slug) => {
@@ -44,7 +44,7 @@ export const getTourById = async (id) => {
       let res = await BaseApi.get(`/tour/id/${id}`);
       return res;
    } catch (error) {
-      new Message('Lỗi!').error();
+      // new Message('Lỗi!').error();
    }
 };
 export const createTour = async (data, token) => {
@@ -56,7 +56,7 @@ export const createTour = async (data, token) => {
       });
       return res;
    } catch (error) {
-      new Message('Thêm mới tour thất bại!').error();
+      // new Message('Thêm mới tour thất bại!').error();
    }
 };
 export const updateTour = async (data, idTour, token) => {
@@ -68,7 +68,7 @@ export const updateTour = async (data, idTour, token) => {
       });
       return res;
    } catch (error) {
-      new Message('Cập nhật tour thất bại!').error();
+      // new Message('Cập nhật tour thất bại!').error();
    }
 };
 export const deleteTour = async (idTour, token) => {
@@ -80,6 +80,6 @@ export const deleteTour = async (idTour, token) => {
       });
       return res;
    } catch (error) {
-      new Message('Xóa tour thất bại!').error();
+      // new Message('Xóa tour thất bại!').error();
    }
 };

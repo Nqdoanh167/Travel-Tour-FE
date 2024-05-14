@@ -12,7 +12,7 @@ export const createReview = async (data, token) => {
       });
       return res;
    } catch (error) {
-      new Message('Thêm mới review thất bại!').error();
+      // new Message('Thêm mới review thất bại!').error();
    }
 };
 export const getAllReviewOnTour = async (idTour) => {
@@ -20,7 +20,7 @@ export const getAllReviewOnTour = async (idTour) => {
       let res = await BaseApi.get(`/review/get-all-review-on-tour/${idTour}`);
       return res;
    } catch (error) {
-      new Message('Lấy danh sách review theo tour thất bại!').error();
+      // new Message('Lấy danh sách review theo tour thất bại!').error();
    }
 };
 export const getReviewOnTour = async (idTour, token) => {
@@ -32,6 +32,6 @@ export const getReviewOnTour = async (idTour, token) => {
       });
       return res;
    } catch (error) {
-      new Message('Lấy danh sách review theo tour của user thất bại!').error();
+      // new Message('Lấy danh sách review theo tour của user thất bại!').error();
    }
 };

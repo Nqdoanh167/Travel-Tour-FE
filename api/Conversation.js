@@ -12,7 +12,7 @@ export const createConversation = async (token, data) => {
       });
       return res;
    } catch (error) {
-      new Message('Thêm mới conversation thất bại!').error();
+      // new Message('Thêm mới conversation thất bại!').error();
    }
 };
 export const findUserConversation = async (token) => {
@@ -24,7 +24,7 @@ export const findUserConversation = async (token) => {
       });
       return res;
    } catch (error) {
-      new Message('Lấy all  user of all conversation thất bại!').error();
+      // new Message('Lấy all  user of all conversation thất bại!').error();
    }
 };
 export const findConversation = async (token, receiveId) => {
@@ -36,6 +36,6 @@ export const findConversation = async (token, receiveId) => {
       });
       return res;
    } catch (error) {
-      new Message('Lấy conversation  thất bại!').error();
+      // new Message('Lấy conversation  thất bại!').error();
    }
 };
